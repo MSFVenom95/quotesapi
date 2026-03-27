@@ -1,0 +1,8 @@
+.env
+.htpasswd
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+/vendor/
+composer.lock
