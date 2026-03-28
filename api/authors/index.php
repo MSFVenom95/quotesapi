@@ -32,7 +32,7 @@ switch ($method) {
         $results = $stmt->fetchAll();
 
 if (empty($results)) {
-    http_response_code(404);
+    http_response_code(200);
     echo json_encode(['message' => 'author_id Not Found']);
 } else {
     http_response_code(200);
@@ -49,7 +49,7 @@ if (empty($results)) {
         if (empty($data)) $data = $_POST;
 
         if (empty($data['author'])) {
-            http_response_code(400);
+            http_response_code(200);
             echo json_encode(['message' => 'Missing Required Parameters']);
             break;
         }
@@ -72,7 +72,7 @@ if (empty($results)) {
         $data = json_decode(file_get_contents('php://input'), true);
 
         if (empty($data['id']) || empty($data['author'])) {
-            http_response_code(400);
+            http_response_code(200);
             echo json_encode(['message' => 'Missing Required Parameters']);
             break;
         }
@@ -83,7 +83,7 @@ if (empty($results)) {
         $result = $author->update();
 
         if ($result === 'not_found') {
-            http_response_code(404);
+            http_response_code(200);
             echo json_encode(['message' => 'author_id Not Found']);
         } elseif ($result === true) {
             http_response_code(200);
@@ -101,7 +101,7 @@ if (empty($results)) {
         $data = json_decode(file_get_contents('php://input'), true);
 
         if (empty($data['id'])) {
-            http_response_code(400);
+            http_response_code(200);
             echo json_encode(['message' => 'Missing Required Parameters']);
             break;
         }
@@ -110,7 +110,7 @@ if (empty($results)) {
         $result     = $author->delete();
 
         if ($result === 'not_found') {
-            http_response_code(404);
+            http_response_code(200);
             echo json_encode(['message' => 'author_id Not Found']);
         } elseif ($result === 'fk_error') {
             http_response_code(409);

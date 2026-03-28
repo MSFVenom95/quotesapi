@@ -47,7 +47,7 @@ switch ($method) {
        $results = $stmt->fetchAll();
 
 if (empty($results)) {
-    http_response_code(404);
+    http_response_code(200);
     echo json_encode(['message' => 'No Quotes Found']);
 } else {
     http_response_code(200);
@@ -69,7 +69,7 @@ if (empty($results)) {
             !isset($data['author_id']) ||
             !isset($data['category_id'])
         ) {
-            http_response_code(400);
+            http_response_code(200);
             echo json_encode(['message' => 'Missing Required Parameters']);
             break;
         }
@@ -78,13 +78,13 @@ if (empty($results)) {
         $categoryId = (int)$data['category_id'];
 
         if (!$quote->authorExists($authorId)) {
-            http_response_code(404);
+            http_response_code(200);
             echo json_encode(['message' => 'author_id Not Found']);
             break;
         }
 
         if (!$quote->categoryExists($categoryId)) {
-            http_response_code(404);
+            http_response_code(200);
             echo json_encode(['message' => 'category_id Not Found']);
             break;
         }
@@ -116,7 +116,7 @@ if (empty($results)) {
             !isset($data['author_id']) ||
             !isset($data['category_id'])
         ) {
-            http_response_code(400);
+            http_response_code(200);
             echo json_encode(['message' => 'Missing Required Parameters']);
             break;
         }
@@ -125,13 +125,13 @@ if (empty($results)) {
         $categoryId = (int)$data['category_id'];
 
         if (!$quote->authorExists($authorId)) {
-            http_response_code(404);
+            http_response_code(200);
             echo json_encode(['message' => 'author_id Not Found']);
             break;
         }
 
         if (!$quote->categoryExists($categoryId)) {
-            http_response_code(404);
+            http_response_code(200);
             echo json_encode(['message' => 'category_id Not Found']);
             break;
         }
@@ -144,7 +144,7 @@ if (empty($results)) {
         $result = $quote->update();
 
         if ($result === 'not_found') {
-            http_response_code(404);
+            http_response_code(200);
             echo json_encode(['message' => 'No Quotes Found']);
         } elseif ($result === true) {
             http_response_code(200);
@@ -164,7 +164,7 @@ if (empty($results)) {
         $data = json_decode(file_get_contents('php://input'), true);
 
         if (empty($data['id'])) {
-            http_response_code(400);
+            http_response_code(200);
             echo json_encode(['message' => 'Missing Required Parameters']);
             break;
         }
@@ -173,7 +173,7 @@ if (empty($results)) {
         $result    = $quote->delete();
 
         if ($result === 'not_found') {
-            http_response_code(404);
+            http_response_code(200);
             echo json_encode(['message' => 'No Quotes Found']);
         } elseif ($result === true) {
             http_response_code(200);
