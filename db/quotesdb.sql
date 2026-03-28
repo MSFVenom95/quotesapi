@@ -9,15 +9,13 @@ CREATE TABLE IF NOT EXISTS authors (
 CREATE TABLE IF NOT EXISTS categories (
     id SERIAL PRIMARY KEY,
     category VARCHAR(255) NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS quotes (
-    id SERIAL PRIMARY KEY,
-    quote TEXT NOT NULL,
-    author_id INT NOT NULL,
-    category_id INT NOT NULL,
-    CONSTRAINT fk_author FOREIGN KEY (author_id) REFERENCES authors(id),
-    CONSTRAINT fk_category FOREIGN KEY (category_id) REFERENCES categories(id)
+);CREATE TABLE IF NOT EXISTS quotes (
+  id SERIAL PRIMARY KEY,
+  quote TEXT NOT NULL,
+  author_id INT NOT NULL,
+  category_id INT NOT NULL,
+  CONSTRAINT fk_author FOREIGN KEY (author_id) REFERENCES authors (id),
+  CONSTRAINT fk_category FOREIGN KEY (category_id) REFERENCES categories (id)
 );
 
 -- Authors
