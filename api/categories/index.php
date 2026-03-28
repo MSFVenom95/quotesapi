@@ -29,15 +29,19 @@ switch ($method) {
             $stmt = $category->getAll();
         }
 
-        $results = $stmt->fetchAll();
+       $results = $stmt->fetchAll();
 
-        if (empty($results)) {
-            http_response_code(404);
-            echo json_encode(['message' => 'category_id Not Found']);
-        } else {
-            http_response_code(200);
-            echo json_encode($results);
-        }
+if (empty($results)) {
+    http_response_code(404);
+    echo json_encode(['message' => 'category_id Not Found']);
+} else {
+    http_response_code(200);
+    if (isset($_GET['id'])) {
+        echo json_encode($results[0]);
+    } else {
+        echo json_encode($results);
+    }
+}
         break;
 
     case 'POST':
@@ -124,16 +128,3 @@ switch ($method) {
         http_response_code(405);
         echo json_encode(['message' => 'Method Not Allowed']);
 }
-```
-
----
-
-## 10. `.htaccess`
-```
-Options -Indexes
-
-RewriteEngine On
-
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^api/(.*)$ api/index.php [QSA,L]

@@ -44,15 +44,20 @@ switch ($method) {
             $stmt = $quote->getAll($random);
         }
 
-        $results = $stmt->fetchAll();
+       $results = $stmt->fetchAll();
 
-        if (empty($results)) {
-            http_response_code(404);
-            echo json_encode(['message' => 'No Quotes Found']);
-        } else {
-            http_response_code(200);
-            echo json_encode($results);
-        }
+if (empty($results)) {
+    http_response_code(404);
+    echo json_encode(['message' => 'No Quotes Found']);
+} else {
+    http_response_code(200);
+    // Return single object when querying by id
+    if ($id !== null) {
+        echo json_encode($results[0]);
+    } else {
+        echo json_encode($results);
+    }
+}
         break;
 
     case 'POST':
